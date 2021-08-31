@@ -26,7 +26,7 @@ const App = (props) => {
                 }
             }}>
             <SNavigation props={{
-                prefixes: ["https://component.servisofts.com", "component.servisofts://"],
+                prefixes: ["https://kuka.servisofts.com", "kuka.servisofts://"],
                 pages: {
                     ...Pages
                 }

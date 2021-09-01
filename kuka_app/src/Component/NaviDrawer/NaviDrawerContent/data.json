@@ -1,0 +1,18 @@
+[
+    {
+        "descripcion": "Inicio",
+        "url": "InicioPage"
+    },
+    {
+        "descripcion": "Usuario Page",
+        "url": "UsuarioPage"
+    },
+    {
+        "descripcion": "Usuario Registro",
+        "url": "UsuarioRegistroPage"
+    },
+    {
+        "descripcion": "Drive",
+        "url": "CarpetasPage"
+    }
+]

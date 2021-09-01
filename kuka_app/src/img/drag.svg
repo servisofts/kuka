@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 103.2 101.8">
+  <title>drag</title>
+  <g>
+    <rect x="5" y="5" width="39.7" height="39.69" rx="9.6" fill="none" stroke="#6dc7f1" stroke-miterlimit="10" stroke-width="10"/>
+    <rect x="58.5" y="5" width="39.7" height="39.69" rx="9.6" fill="none" stroke="#6dc7f1" stroke-miterlimit="10" stroke-width="10"/>
+    <rect x="5" y="57.1" width="39.7" height="39.69" rx="9.6" fill="none" stroke="#6dc7f1" stroke-miterlimit="10" stroke-width="10"/>
+    <rect x="58.5" y="57.1" width="39.7" height="39.69" rx="9.6" fill="none" stroke="#6dc7f1" stroke-miterlimit="10" stroke-width="10"/>
+  </g>
+</svg>

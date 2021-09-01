@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 143 192">
+  <title>video</title>
+  <g>
+    <g>
+      <path d="M0,170.2V20.5C.3,18.8,1.8,9.6,10.2,4a23,23,0,0,1,12-4h67L143,56l-.3,116a21.2,21.2,0,0,1-5.8,12.9,22.1,22.1,0,0,1-13.9,6.6L19.2,192a26.2,26.2,0,0,1-13.9-8.6A25.2,25.2,0,0,1,0,170.2Z" fill="#e5221d"/>
+      <polygon points="89.2 0 89.2 55.5 143 56 89.2 0" fill="#ea4f51"/>
+    </g>
+    <circle cx="71.5" cy="120.6" r="31.2" fill="#fff"/>
+    <path d="M65.1,129.6c0-5.8,0-11.7-.1-17.6l17.1,8.7Z" fill="#e30613" stroke="#e30613" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.3"/>
+  </g>
+</svg>

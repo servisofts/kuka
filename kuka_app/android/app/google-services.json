@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "830922306860",
+    "project_id": "quantum-fusion-318704",
+    "storage_bucket": "quantum-fusion-318704.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830922306860:android:dc08be099aaa831704a889",
+        "android_client_info": {
+          "package_name": "com.kuka_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830922306860-ap7qp8pgq9q41pnsecpabhbqe4i4gc0g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGOL7hC4bv76G-m95dmZgy4BVk00pa0nM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830922306860-ap7qp8pgq9q41pnsecpabhbqe4i4gc0g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

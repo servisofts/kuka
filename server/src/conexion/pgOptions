@@ -1,0 +1,12 @@
+
+
+
+/Applications/pgAdmin 4.app/Contents/SharedSupport/pg_dump 
+--file "/Users/ricardopazdemiquel/asdasd" 
+--host "192.168.1.110" 
+--port "5432" 
+--username "postgres" 
+--no-password 
+--verbose 
+--format=c 
+--blobs "serviproyect"

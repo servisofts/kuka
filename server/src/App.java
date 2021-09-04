@@ -30,5 +30,7 @@ public class App {
         // SSInit.initFunctions();
         // ConexionMySql.setConexion(Config.getJSON("data_base_mysql"));
         //new Migrador().run();
+        //kuka 39d59f67-f312-4f42-a77a-88625ed2d5b8
+        //calistenia b98d744a-6629-4c80-b513-f007c884e8e1
     }
 }

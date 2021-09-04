@@ -131,6 +131,18 @@ public class Manejador {
                     new SucursalTipoPagoCuentaBanco(data, session);
                     break;
                 }
+                case "tipoMesa": {
+                    new TipoMesa(data, session);
+                    break;
+                }
+                case "mesa": {
+                    new Mesa(data, session);
+                    break;
+                }
+                case "reservaMesa": {
+                    new ReservaMesa(data, session);
+                    break;
+                }
                 default:
                     redirect(data, session);
             }

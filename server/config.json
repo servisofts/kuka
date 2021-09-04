@@ -1,0 +1,43 @@
+{
+    "ss": "servisofts.kuka",
+    "production":true,
+    "socket_client": {
+        "servicio": {
+            "puerto": 10001,
+            "ip": "192.168.0.20",
+            "cert": {
+                "OU": "servicio",
+                "pem": "servicio.pem"
+            }
+        },
+        "reconectTime": 5000
+    },
+    "files":{
+        "url":"/u01/servisoftsFiles/kuka/"
+    },
+    "data_base": {
+        "puerto": 5432,
+        "pass": "postgres",
+        "ip": "192.168.0.20",
+        "bd_name": "servisofts.kuka",
+        "user": "postgres"
+    },
+    "nombre": "kuka",
+    "ssl": {
+        "pass_jks": "Servisofts123.",
+        "cert": {
+            "ST": "Av Banzer",
+            "C": "BO",
+            "E": "servisofts.srl@gmail.com",
+            "OU": "kuka",
+            "CN": "kuka.servisofts.com",
+            "L": "Santa Cruz",
+            "O": "Servisofts SRL"
+        },
+        "nombre_jks": "servisofts"
+    },
+    "socket_server": {
+        "puerto": 10020,
+        "ip": "192.168.0.199"
+    }
+}

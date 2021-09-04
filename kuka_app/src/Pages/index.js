@@ -60,6 +60,9 @@ import ClientePaqueteRegistroConfirmacion from './ClientePaqueteRegistroConfirma
 import Banco from './Banco'
 import VentasPage from './VentasPage/index';
 import AjustesPage from './AjustesPage'
+import DesingPage from './DesingPage'
+
+import Mesa from './Mesa'
 export const getPages = () => {
     return {
         // TestRNF,
@@ -114,6 +117,8 @@ export const getPages = () => {
         ProveedoresPage,
         ProveedorRegistroPage,
         ClientePaqueteRegistroConfirmacion,
+        ...Mesa,
+        ...DesingPage,
         ...TipoPago,
         ...Caja,
         ...Finanzas,

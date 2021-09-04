@@ -25,10 +25,10 @@ export default class SPopup extends Component {
             style: {}
         });
     }
-    static confirm(title, callback) {
+    static confirm(title, callback, onCancel) {
         INSTANCE.open({
             key: 'confirm',
-            content: <Confirm title={title} onPress={callback} />,
+            content: <Confirm title={title} onPress={callback} onCancel={onCancel} />,
             style: {}
         });
     }

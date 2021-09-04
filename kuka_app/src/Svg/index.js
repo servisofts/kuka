@@ -36,6 +36,7 @@ import Arrr from '../img/arrr.svg';
 import Caja from '../img/caja.svg';
 import Paquete from '../img/paquete.svg';
 
+import Kuka_line from '../img/kuka_line.svg'
 type typeName = "logo"
     | "logoBlanco"
     | "see"
@@ -66,6 +67,7 @@ type typeName = "logo"
     | "arrr"
     | "caja"
     | "paquete"
+    | "Kuka_line"
 
 
 type svgProps = {
@@ -140,6 +142,8 @@ const Svg = (props: svgProps) => {
             return (Platform.OS == "web" ? <img style={props.style} src={Caja} /> : <Caja style={props.style} />);
         case "Paquete":
             return (Platform.OS == "web" ? <img style={props.style} src={Paquete} /> : <Paquete style={props.style} />);
+        case "Kuka_line":
+            return (Platform.OS == "web" ? <img style={props.style} src={Kuka_line} /> : <Kuka_line style={props.style} />);
         default: return <Text>Not Found</Text>
     }
 }

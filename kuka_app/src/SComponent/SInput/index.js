@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ViewStyle, TouchableOpacity, TextInputProps, Animated, TextInput, Platform } from 'react-native';
+import { View, StyleSheet, ViewStyle, TouchableOpacity, TextInputProps, Animated, TextInput, Platform, TextStyle } from 'react-native';
 import { STheme } from '../../SComponent';
 import { Variant, TypeVariant } from './variants';
 import { Type, TypeType } from './types';
@@ -22,16 +22,18 @@ export type typeConfigInpust = {
     onStateChange: Function,
     placeholder: String,
     onPress: Function,
+    options?: Array<any>,
 }
 
-interface IProps extends TextInputProps {
+export interface TypeInputProps extends TextInputProps {
     style: ViewStyle,
     props: typeConfigInpust,
     onPress: Function,
+    styleInput: TextStyle
 }
 // export type SInputProps = IProps;
 
-export class SInput extends Component<IProps> {
+export class SInput extends Component<TypeInputProps> {
     static TYPE(type: TypeType) { return type };
     constructor(props) {
         super(props);
@@ -78,7 +80,7 @@ export class SInput extends Component<IProps> {
     }
     setValue(val) {
         if (this.props.onChangeText) {
-           this.props.onChangeText(val)
+            this.props.onChangeText(val)
         }
         this.setState({ value: val });
     }
@@ -122,6 +124,12 @@ export class SInput extends Component<IProps> {
             this.customStyle.LabelStyle,
             this.type.style.LabelStyle,
         ]}>{this.props.props.label}</SText>
+    }
+    notifyBlur() {
+        if (this.props.onBlur) {
+            this.props.onBlur(null);
+        }
+        // this.setState({ value: val });
     }
     render() {
         this.buildStyle();
@@ -211,7 +219,7 @@ export class SInput extends Component<IProps> {
                                     height: "100%",
                                     outline: "none",
 
-                                }]}
+                                }, (this.props.styleInput ? this.props.styleInput : {})]}
                             placeholderTextColor={this.customStyle.placeholder.color}
 
                         />

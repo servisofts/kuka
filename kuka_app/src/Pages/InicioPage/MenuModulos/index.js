@@ -41,7 +41,7 @@ export default class MenuModulos extends Component {
                         overflow: "hidden",
                         justifyContent: "center",
                         alignItems: "center",
-                        backgroundColor:"#44000044",
+                        // backgroundColor:"#44000044",
                         padding:2,
                     }} onPress={() => {
                         this.props.navigation.navigate(obj.url);

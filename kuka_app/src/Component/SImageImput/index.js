@@ -24,6 +24,9 @@ export const choseFile = (props, callback) => {
         // console.log(props);
         var url = servicios[props.servicio];
         if (!url) {
+            url = AppParams.urlImages;
+        }
+        if (!url) {
             alert(url);
             return false;
         }

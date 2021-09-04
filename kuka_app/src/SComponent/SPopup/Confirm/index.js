@@ -10,6 +10,9 @@ export default class Confirm extends Component {
     constructor(props) {
         super(props)
     }
+    componentWillUnmount(){
+        if (this.props.onCancel) this.props.onCancel()
+    }
     render() {
         return (
             <SView props={{
@@ -34,6 +37,7 @@ export default class Confirm extends Component {
                                 type: "danger"
                             }}
                             onPress={() => {
+                                if (this.props.onCancel) this.props.onCancel()
                                 SPopupClose("confirm")
                             }}>Cancelar</SButtom>
                     </SView>

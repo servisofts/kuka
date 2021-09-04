@@ -2,7 +2,7 @@
     "kuka": {
         "web": {
             "_ip": "wss://calistenia.servisofts.com/servers/",
-            "ip": "ws://192.168.0.199:20018/"
+            "ip": "ws://192.168.0.199:20020/"
         },
         "native": {
             "ip": "calistenia.servisofts.com",

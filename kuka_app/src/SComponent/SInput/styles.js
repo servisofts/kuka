@@ -28,7 +28,7 @@ const getType = (type: TypeStyles) => {
                     top: -22,
                     left: 8,
                     fontSize: 14,
-                    color:STheme().colorPrimary,
+                    color:STheme().colorSecondary,
                     // backgroundColor:STheme().colorPrimary+"22",
                     // borderRadius:4,
                     // padding:4,
@@ -36,7 +36,7 @@ const getType = (type: TypeStyles) => {
                 },
                 "InputText": {
                     fontSize: 14,
-                    color: STheme().colorPrimary,
+                    color: STheme().colorSecondary,
                     ...(Platform.OS != "web" ? {} : { placeholderTextColor: STheme().colorOpaque }),
                 },
                 "placeholder": {

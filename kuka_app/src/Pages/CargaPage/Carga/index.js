@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as SSStorage from '../../../SSStorage';
 import AppParams from '../../../Params/index.json'
 import SThread from '../../../Component/SThread';
+import { SText } from '../../../SComponent';
 var lastSend = 0;
 var location = "";
 const Carga = (props) => {
@@ -67,7 +68,7 @@ const Carga = (props) => {
 
         if (!props.state.usuarioReducer.usuarioLog) {
             // props.navigation.replace("LoginPage");
-            props.navigation.replace("PresentacionCalisPage");
+            props.navigation.replace("LoginPage");
             ///no hay usuario
         } else {
             props.navigation.replace("InicioPage");
@@ -77,7 +78,7 @@ const Carga = (props) => {
     return (
         <View style={{
         }}>
-            <Text>{mensaje}</Text>
+            <SText>{mensajeTemp}</SText>
         </View>
     );
 }

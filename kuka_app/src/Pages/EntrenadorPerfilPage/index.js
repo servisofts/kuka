@@ -69,7 +69,7 @@ class EntrenadorPerfilPage extends Component {
       }}>
         <BackgroundImage />
 
-        <BarraSuperior duration={500} title={"Perfil de entrenador"} navigation={this.props.navigation} goBack={() => {
+        <BarraSuperior duration={500} title={"Perfil del relacionador"} navigation={this.props.navigation} goBack={() => {
           this.props.navigation.goBack();
         }} {...this.props} />
         <View style={{

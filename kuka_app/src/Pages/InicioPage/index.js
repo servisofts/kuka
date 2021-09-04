@@ -7,7 +7,7 @@ import NaviDrawer from '../../Component/NaviDrawer';
 import NaviDrawerButtom from '../../Component/NaviDrawer/NaviDrawerButtom';
 import SCarrusel from '../../Component/SCarrusel';
 import SImage from '../../Component/SImage';
-import { SScrollView2 } from '../../SComponent';
+import { SButtom, SScrollView2, SView } from '../../SComponent';
 import * as SSNavigation from '../../SSNavigation'
 import Svg from '../../Svg';
 import Graphic1 from './Graphic1';
@@ -29,15 +29,15 @@ class InicioPage extends Component {
 
   render() {
     return (<>
-      <View style={{  
+      <View style={{
         flex: 1,
         width: "100%",
         height: "100%",
         // justifyContent: "center",
-        alignItems: "center"
-        // backgroundColor:"#000",
+        alignItems: "center",
+        backgroundColor:"#A83293",
       }}>
-        <BackgroundImage source={require("../../img/background.png")} />
+        <BackgroundImage  />
         <BarraSuperior navigation={this.props.navigation} title={"Inicio"} />
 
         <View style={{
@@ -55,6 +55,16 @@ class InicioPage extends Component {
 
             </View>
             <MenuModulos navigation={this.props.navigation} {...this.props} />
+            {/* <SView col={"xs-12"} style={{
+              height: 50,
+            }} center>
+              <SButtom props={{
+                type: "danger",
+              }} onPress={() => {
+                this.props.navigation.navigate("DesingPage")
+              }}>Desing</SButtom>
+            </SView> */}
+
           </SScrollView2>
         </View>
         {/* <NaviDrawerButtom open={() => {

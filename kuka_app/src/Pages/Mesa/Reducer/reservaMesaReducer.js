@@ -14,6 +14,9 @@ export default (state, action) => {
             case "getAll":
                 getAll(state, action);
                 break;
+            case "ingreso":
+                ingreso(state, action);
+                break;
         }
         state.type = action.type;
         state.estado = action.estado;
@@ -26,6 +29,16 @@ export default (state, action) => {
 }
 
 const registro = (state, action) => {
+    if (action.estado === "exito") {
+        if (state.data) {
+            if (state.data[action.key_tipo_mesa]) {
+                state.data[action.key_tipo_mesa][action.data.key] = action.data;
+            }
+        }
+
+    }
+}
+const ingreso = (state, action) => {
     if (action.estado === "exito") {
         if (state.data) {
             if (state.data[action.key_tipo_mesa]) {

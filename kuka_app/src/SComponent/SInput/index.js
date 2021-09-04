@@ -8,6 +8,7 @@ import { CustomStyles, TypeStyles } from './styles';
 import SSize from '../SSize';
 import { SText } from '../SText';
 import { SView } from '../SView';
+import SLoad from '../SLoad';
 
 export type typeConfigInpust = {
     style: ViewStyle,
@@ -22,7 +23,8 @@ export type typeConfigInpust = {
     onStateChange: Function,
     placeholder: String,
     onPress: Function,
-    options?: Array<any>,
+    options?: Object,
+    loading?: Boolean,
 }
 
 export interface TypeInputProps extends TextInputProps {
@@ -79,10 +81,11 @@ export class SInput extends Component<TypeInputProps> {
         return isValid
     }
     setValue(val) {
+        this.setState({ value: val });
+
         if (this.props.onChangeText) {
             this.props.onChangeText(val)
         }
-        this.setState({ value: val });
     }
     getValue() {
         return this.state.value;
@@ -130,6 +133,21 @@ export class SInput extends Component<TypeInputProps> {
             this.props.onBlur(null);
         }
         // this.setState({ value: val });
+    }
+    getLoading() {
+        if(!this.props.loading){
+            return <View />
+        }
+        return <View style={{
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            backgroundColor: "#00000044"
+        }}>
+            <SLoad />
+        </View>
     }
     render() {
         this.buildStyle();
@@ -184,7 +202,7 @@ export class SInput extends Component<TypeInputProps> {
                 <SView props={{
                     col: "xs-12",
                     direction: "row",
-                }} style={{ flex: 1, height: "100%", overflow: "hidden", }}>
+                }} row style={{ flex: 1, height: "100%", overflow: "hidden", }}>
                     {this.getIcon()}
                     <SView style={{
                         flex: 1,
@@ -223,6 +241,7 @@ export class SInput extends Component<TypeInputProps> {
                             placeholderTextColor={this.customStyle.placeholder.color}
 
                         />
+                        {this.getLoading()}
                     </SView>
                 </SView>
                 {this.getLabel()}

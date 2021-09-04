@@ -36,6 +36,7 @@ import cuentaBancoMovimientoReducer from './cuentaBancoMovimientoReducer';
 import clientesActivosReducer from './clientesActivosReducer';
 import sucursalTipoPagoCuentaBancoReducer from './sucursalTipoPagoCuentaBancoReducer';
 import { Reducer as Mesa } from '../Pages/Mesa';
+import Jornada from '../Pages/Jornada';
 export default combineReducers({
     paqueteVentaReducer,
     entrenamientoReducer,
@@ -72,6 +73,7 @@ export default combineReducers({
     cuentaBancoReducer,
     cuentaBancoMovimientoReducer,
     sucursalTipoPagoCuentaBancoReducer,
+    ...Jornada.reducer,
     ...Mesa,
     ...SSRolesPermisos
 });

@@ -178,9 +178,10 @@ class EntrenadorPage extends Component {
             this.props.navigation.goBack();
             return;
           }
-          this.props.navigation.navigate("EntrenadorPerfilPage", {
-            key_usuario: key
-          })
+          this.props.navigation.navigate("ClienteRegistroPage", {key: key })
+          // this.props.navigation.navigate("ClienteRegistroPage", {
+          //   key_usuario: key
+          // })
         }}>
           <View style={{
             flex: 1,
@@ -238,7 +239,7 @@ class EntrenadorPage extends Component {
         // backgroundColor:"#000",
       }}>
         <BackgroundImage />
-        <BarraSuperior title={"Entrenadores"} navigation={this.props.navigation} goBack={() => {
+        <BarraSuperior title={"Relacionadores"} navigation={this.props.navigation} goBack={() => {
           this.props.navigation.goBack();
         }} />
         <Buscador ref={(ref) => {

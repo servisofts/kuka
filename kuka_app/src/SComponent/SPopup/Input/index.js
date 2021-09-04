@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { SPopupClose } from '..'
+import { SInput } from '../..'
 import Actions from '../../../Actions'
 import BackgroundImage from '../../../Component/BackgroundImage'
 import { SButtom } from '../../SButtom'
 import { SText } from '../../SText'
 import { SView } from '../../SView'
 
-export default class Confirm extends Component {
+export default class Input extends Component {
     constructor(props) {
         super(props)
     }
@@ -19,12 +20,26 @@ export default class Confirm extends Component {
             <SView props={{
                 col: "xs-11 md-8 xl-6",
                 variant: "center"
-            }} style={{ height: 200, borderRadius: 8 }}>
+            }} style={{ height: 200, borderRadius: 8 }} withoutFeedback>
                 <BackgroundImage />
                 <SView col={"xs-10"} props={{
                     variant: "center"
                 }}>
                     <SText style={{ fontSize: 16, color: "#FFF", textAlign: "center" }}>{this.props.title}</SText>
+                </SView>
+                <SView col={"xs-12"} style={{
+                    height: 16
+                }}></SView>
+                <SView col={"xs-12"} center height={40}>
+                    <SInput
+                        ref={(ref) => { this.input = ref }}
+                        placeholder={"Escriba aqui..."}
+                        {...this.props.inputProps ? this.props.inputProps : {}}
+                        props={{
+                            col: "xs-10",
+                            customStyle: "outline",
+                            ...(this.props.inputProps ? this.props.inputProps.props : {})
+                        }} />
                 </SView>
                 <SView col={"xs-12"} style={{
                     height: 16
@@ -47,7 +62,8 @@ export default class Confirm extends Component {
                             type: "outline"
                         }}
                             onPress={() => {
-                                if (this.props.onPress) this.props.onPress()
+                                var value = this.input.getValue()
+                                if (this.props.onPress) this.props.onPress(value)
                                 SPopupClose("confirm")
                             }}>Confirmar</SButtom>
                     </SView>

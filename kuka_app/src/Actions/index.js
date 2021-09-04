@@ -5,6 +5,7 @@ import SucursalTipoPagoCuentaBanco from './SucursalTipoPagoCuentaBanco'
 import CuentaBanco from './CuentaBanco'
 import CajaMovimiento from './CajaMovimiento'
 import Mesa from './Mesa'
+import Jornada from './Jornada'
 export default {
     Sucursal,
     SucursalTipoPagoCuentaBanco,
@@ -12,5 +13,6 @@ export default {
     Caja,
     CuentaBanco,
     CajaMovimiento,
-    Mesa
+    Mesa,
+    Jornada
 }

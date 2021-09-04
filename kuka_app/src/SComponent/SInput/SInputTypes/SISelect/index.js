@@ -16,7 +16,7 @@ type typeConfig = {
 type typeProps = {
     style: ViewStyle,
     props: typeConfig,
-    onChange: (value: SDate) => any,
+    onChange: (value) => any,
     onClose?: () => any,
     options?: Array<string> | Array<{ key: string, content: any }>,
     // ViewPropTypes,
@@ -103,7 +103,8 @@ export default class SISelect extends Component<typeProps> {
     }
     getListaKey = (key) => {
         var arr = this.props.options;
-        return arr.map((obj) => {
+        return Object.keys(arr).map((key_2) => {
+            var obj = arr[key_2];
             // if (obj.type == "day" && this.state.select.year && this.state.select.month) {
             //     var fecha = this.state.select.year + "-" + this.state.select.month + "-" + obj.val
             //     if (!SDate.isValid(fecha)) {
@@ -136,6 +137,7 @@ export default class SISelect extends Component<typeProps> {
                 onPress={() => {
                     var layout = this.refItens[keyObj].getLayout();
                     this.scroll[key].scrollTo({ x: layout.x + 50, y: layout.y + 20 });
+                    this.selectIten(key, keyObj)
                 }}>
 
                 {Content}
@@ -153,20 +155,20 @@ export default class SISelect extends Component<typeProps> {
         return <SView
             col={"xs-12"}
             center
-            flex
+            height
         >
             <SView style={{
                 position: "absolute",
                 width: "100%",
                 height: 40,
-                backgroundColor: STheme().colorPrimary+ "44"
+                backgroundColor: STheme().colorPrimary + "44"
             }}>
 
             </SView>
-            <SScrollView2 disableHorizontal
+            <SScrollView2
+                disableHorizontal
                 ref={(ref) => { this.scroll[key] = ref }}
                 // reverse
-              
                 onScrollEnd={(evt) => {
                     this.onScrollEnd(key, evt);
                 }}
@@ -201,7 +203,7 @@ export default class SISelect extends Component<typeProps> {
             style={{
                 height: 200,
                 borderRadius: 8,
-                backgroundColor:  STheme().backgroundColor,
+                backgroundColor: STheme().backgroundColor,
                 overflow: "hidden"
             }
             }>

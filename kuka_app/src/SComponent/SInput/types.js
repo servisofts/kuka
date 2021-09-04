@@ -249,7 +249,6 @@ const select = (type: TypeType, Parent: SInput) => {
     return buildResp({
         props: {
             editable: false,
-            // focusable: false,
             pointerEvents: "none",
         },
         render: (_Parent: SInput) => {
@@ -284,10 +283,18 @@ const select = (type: TypeType, Parent: SInput) => {
                         Parent.notifyBlur();
                     }}
                     onChange={(val) => {
-                        // console.log(val);
+                        console.log(val);
                         Parent.setValue(val);
                     }} />
             })
+        },
+        filter: (_value: String) => {
+            var options = Parent.getOption("options");
+            if(typeof options[_value] != "object"){
+                return options[_value]
+            }else{
+                return options[_value].label
+            }
         },
         style: {
             View: {
@@ -295,7 +302,7 @@ const select = (type: TypeType, Parent: SInput) => {
                 // alignItems:"center",
             },
             InputText: {
-                fontSize: 0,
+                // fontSize: 0,
             },
             LabelStyle: {}
         }

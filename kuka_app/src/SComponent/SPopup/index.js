@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { View, Text, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
 // import Svg from '../../Svg';
 import { SScrollView } from '../../SComponent'
+import { TypeInputProps } from '../../SComponent/SInput'
 import { SView } from '../SView';
 import Alert from './Alert';
 import Confirm from './Confirm';
+import Input from './Input';
 import SPopupComponent from './SPopupComponent';
 
 var INSTANCE = false;
@@ -29,6 +31,14 @@ export default class SPopup extends Component {
         INSTANCE.open({
             key: 'confirm',
             content: <Confirm title={title} onPress={callback} onCancel={onCancel} />,
+            style: {}
+        });
+    }
+
+    static input({ title, props, callback, onCancel }) {
+        INSTANCE.open({
+            key: 'confirm',
+            content: <Input title={title} inputProps={props} onPress={callback} onCancel={onCancel} />,
             style: {}
         });
     }

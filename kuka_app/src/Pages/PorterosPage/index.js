@@ -1,12 +1,11 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import qs from 'qs';
-import { View, Text, Button, TouchableOpacity, ScrollView, Linking, Platform, ActivityIndicator } from 'react-native';
-// import NaviDrawer from '../../Component/NaviDrawer';
-// import NaviDrawerButtom from '../../Component/NaviDrawer/NaviDrawerButtom';
-// import * as SSNavigation from '../../SSNavigation'
-// import ActionButtom from '../../Component/ActionButtom';
+import { View, Text, Button, TouchableOpacity, ScrollView, Linking, Platform } from 'react-native';
+import NaviDrawer from '../../Component/NaviDrawer';
+import NaviDrawerButtom from '../../Component/NaviDrawer/NaviDrawerButtom';
+import * as SSNavigation from '../../SSNavigation'
+import ActionButtom from '../../Component/ActionButtom';
 import AppParams from '../../Params';
 import BackgroundImage from '../../Component/BackgroundImage';
 import BarraSuperior from '../../Component/BarraSuperior';
@@ -14,8 +13,7 @@ import SSCrollView from '../../Component/SScrollView';
 import FloatButtom from '../../Component/FloatButtom';
 import SOrdenador from '../../Component/SOrdenador';
 import Buscador from '../../Component/Buscador';
-import { SScrollView2, SView } from '../../SComponent';
-class VentasPage extends Component {
+class PorterosPage extends Component {
   static navigationOptions = {
     title: "Lista de usuario.",
     headerShown: false,
@@ -27,8 +25,7 @@ class VentasPage extends Component {
         curPage: 1,
       }
     };
-    this.onSelect = props.navigation.getParam("onSelect");
-    // SSNavigation.setProps(props);
+    SSNavigation.setProps(props);
 
   }
   componentDidMount() {
@@ -103,13 +100,13 @@ class VentasPage extends Component {
   }
 
   render() {
-
+    this.onSelect = this.props.navigation.getParam("onSelect");
     const getLista = () => {
       var cabecera = "registro_administrador";
       var data = this.props.state.usuarioReducer.data[cabecera];
       if (!data) {
         if (this.props.state.usuarioReducer.estado == "cargando") {
-          return <ActivityIndicator color={"#fff"} />
+          return <Text>Cargando</Text>
         }
         var object = {
           component: "usuario",
@@ -120,40 +117,27 @@ class VentasPage extends Component {
           key_usuario: this.props.state.usuarioReducer.usuarioLog.key,
         }
         this.props.state.socketReducer.session[AppParams.socket.name].send(object, true);
-        return <ActivityIndicator color={"#fff"} />
+        return <View />
       }
       var reducer = this.props.state.usuarioRolReducer;
-      var dataRU = reducer.rol["d16d800e-5b8d-48ae-8fcb-99392abdf61f"];
+      var dataRU = reducer.rol["c7a8c275-8402-444c-889e-7b1b956b8677"];
       if (!dataRU) {
         if (reducer.estado == "cargando") {
-          return <ActivityIndicator color={"#fff"} />
+          return <Text>Cargando</Text>
         }
         this.props.state.socketReducer.session[AppParams.socket.name].send({
           component: "usuarioRol",
           type: "getAll",
           estado: "cargando",
-          key_rol: "d16d800e-5b8d-48ae-8fcb-99392abdf61f",
+          key_rol: "c7a8c275-8402-444c-889e-7b1b956b8677",
         }, true);
-        return <ActivityIndicator color={"#fff"} />
+        return <View />
       }
-
-      /*  var usuariosActivos = this.props.state.usuariosActivosReducer;
-        if (!usuariosActivos) {
-          if (reducer.estado == "cargando") {
-            return <ActivityIndicator color={"#fff"} />
-          }
-          this.props.state.socketReducer.session[AppParams.socket.name].send({
-            component: "usuario",
-            type: "getActivos",
-            estado: "cargando",
-          }, true);
-          return <ActivityIndicator color={"#fff"} />
-        }
-        */
-
       if (!this.state.buscador) {
-        return <ActivityIndicator color={"#fff"} />
+        return <View />
       }
+      // console.log(clientes);
+      // var dto = data;
       var objFinal = {};
       Object.keys(data).map((key) => {
         if (!dataRU[key]) {
@@ -164,6 +148,7 @@ class VentasPage extends Component {
         // }
         objFinal[key] = data[key];
       });
+      // console.log("REPINTO===")
       return this.pagination(
         new SOrdenador([
           { key: "Peso", order: "desc", peso: 4 },
@@ -175,7 +160,8 @@ class VentasPage extends Component {
       ).map((key) => {
         var usr = data[key];
         var obj = data[key];
-
+        // console.log(obj);
+        // return <View />
         // if (!usr.estado) {
         //   return <View />
         // }
@@ -187,14 +173,15 @@ class VentasPage extends Component {
           borderRadius: 10,
           backgroundColor: "#66000044"
         }} onPress={() => {
-          if(this.onSelect){
-            this.onSelect(obj);
+          if (this.onSelect) {
+            this.onSelect(usr);
             this.props.navigation.goBack();
             return;
           }
-          this.props.navigation.navigate("ClienteRegistroPage", {
-            key: key
-          })
+          this.props.navigation.navigate("ClienteRegistroPage", {key: key })
+          // this.props.navigation.navigate("ClienteRegistroPage", {
+          //   key_usuario: key
+          // })
         }}>
           <View style={{
             flex: 1,
@@ -252,7 +239,7 @@ class VentasPage extends Component {
         // backgroundColor:"#000",
       }}>
         <BackgroundImage />
-        <BarraSuperior title={"Ventas"} navigation={this.props.navigation} goBack={() => {
+        <BarraSuperior title={"Porteros"} navigation={this.props.navigation} goBack={() => {
           this.props.navigation.goBack();
         }} />
         <Buscador ref={(ref) => {
@@ -262,24 +249,27 @@ class VentasPage extends Component {
           flex: 1,
           width: "100%",
         }}>
-          <SScrollView2
-            disableHorizontal
+          <SSCrollView
+            style={{ width: "100%" }}
+            contentContainerStyle={{
+              alignItems: "center"
+            }}
             onScroll={(evt) => {
               var evn = evt.nativeEvent;
               var posy = evn.contentOffset.y + evn.layoutMeasurement.height;
+              // console.log(evn);
               var heigth = evn.contentSize.height;
               if (heigth - posy <= 0) {
                 this.state.pagination.curPage += 1;
+                // console.log(this.state.pagination.curPage);
                 this.setState({ ...this.state })
               }
             }}
           >
-            <SView col={"xs-12"} center>
-              {getLista()}
-            </SView>
-          </SScrollView2>
-          <FloatButtom esconder={this.onSelect} onPress={() => {
-            this.props.navigation.navigate("ClienteRegistroPage")
+            {getLista()}
+          </SSCrollView>
+          <FloatButtom onPress={() => {
+            this.props.navigation.navigate("ClienteRegistroPage", { key_rol: "c7a8c275-8402-444c-889e-7b1b956b8677" })
           }} />
         </View>
       </View>
@@ -290,4 +280,4 @@ class VentasPage extends Component {
 const initStates = (state) => {
   return { state }
 };
-export default connect(initStates)(VentasPage);
+export default connect(initStates)(PorterosPage);

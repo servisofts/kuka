@@ -143,6 +143,10 @@ public class Manejador {
                     new ReservaMesa(data, session);
                     break;
                 }
+                case "jornada": {
+                    new Jornada(data, session);
+                    break;
+                }
                 default:
                     redirect(data, session);
             }

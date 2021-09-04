@@ -1,12 +1,14 @@
 type TypeOrdenar = {
     key: String,
     order: "asc" | "desc",
-    peso: Number
+    peso: Number,
+    render: Function
 }
 export default class SOrdenador {
 
-    constructor(arrProps:TypeOrdenar[]) {
+    constructor(arrProps: TypeOrdenar[], filter) {
         this.arrProps = arrProps;
+        this.filter = filter;
     }
     ordernarObject(data) {
         this.data = data;
@@ -29,6 +31,10 @@ export default class SOrdenador {
                 var ordInt = (prop.order == "asc" ? 1 : -1);
                 var valA = instance.data[a][prop.key] || 1;
                 var valB = instance.data[b][prop.key] || 1;
+                if (prop.render) {
+                    valA = prop.render(valA);
+                    valB = prop.render(valB);
+                }
                 if (typeof valA == "string") valA = valA.toLowerCase();
                 if (typeof valB == "string") valB = valB.toLowerCase();
                 // console.log(prop)

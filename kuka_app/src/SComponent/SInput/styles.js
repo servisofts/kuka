@@ -6,7 +6,7 @@ import { STheme } from "../STheme"
 //Tamanhos y fomas
 
 
-type Typesp = "default" | "primary" | "secondary" | "calistenia"
+type Typesp = "default" | "primary" | "secondary" | "calistenia" | "outline"
 
 
 export type TypeStyles = Typesp | [Typesp]
@@ -18,17 +18,17 @@ const getType = (type: TypeStyles) => {
                 "View": {
                     backgroundColor: STheme().colorPrimary + "22",
                     borderWidth: 1,
-                    borderColor: STheme().colorOpaque+"44",
+                    borderColor: STheme().colorOpaque + "44",
                     borderRadius: 4,
                     marginTop: 32,
-                    paddingStart:8,
+                    paddingStart: 8,
                 },
                 "LabelStyle": {
                     position: "absolute",
                     top: -22,
                     left: 8,
                     fontSize: 14,
-                    color:STheme().colorSecondary,
+                    color: STheme().colorSecondary,
                     // backgroundColor:STheme().colorPrimary+"22",
                     // borderRadius:4,
                     // padding:4,
@@ -93,6 +93,29 @@ const getType = (type: TypeStyles) => {
                 "error": {
                     borderColor: STheme().colorDanger,
                     // color: STheme().colorPrimary + "66"
+                },
+            })
+        case "outline":
+            return StyleSheet.create({
+                "View": {
+                    flex:1,
+                    height: "100%",
+                    alignItems: "center",
+                    borderWidth: 1,
+                    borderColor: STheme().colorSecondary + "44",
+                    borderRadius: 4,
+                },
+                "LabelStyle": {
+                    
+                },
+                "InputText": {
+                    color: STheme().colorSecondary,
+                },
+                "placeholder": {
+                    color: STheme().colorOpaque + "aa"
+                },
+                "error": {
+                    borderColor: STheme().colorDanger,
                 },
             })
         default:

@@ -21,7 +21,7 @@ const Themas = {
         colorDanger: "#C31C37",
         colorOpaque:"#444444",
         colorSuccess: "#8BCB2A",
-        card:"#27202166"
+        card:"#272021aa"
     },
     dark: {
         colorPrimary: "#000000",

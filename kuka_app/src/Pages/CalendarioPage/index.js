@@ -6,6 +6,7 @@ import BackgroundImage from '../../Component/BackgroundImage';
 import BarraSuperior from '../../Component/BarraSuperior';
 import SSCrollView from '../../Component/SScrollView';
 import { SCalendar, SDate, SLoad, SPopup, SScrollView2, SView } from '../../SComponent';
+import { SSRolesPermisosValidate } from '../../SSRolesPermisos';
 import Svg from '../../Svg';
 
 class CalendarioPage extends Component {
@@ -26,15 +27,29 @@ class CalendarioPage extends Component {
     return <SCalendar
       jornadas={jornadas}
       onDelete={(jornada) => {
-        SPopup.confirm(`Esta seguro de quitar la jornada \n ${jornada.descripcion}`, () => {
-          Actions.Jornada.editar({
-            ...jornada,
-            estado: 0
-          }, this.props)
-        });
+
+        if (SSRolesPermisosValidate({ page: "CalendarioPage", permiso: "eliminar" })) {
+          SPopup.confirm(`Esta seguro de quitar la jornada \n ${jornada.descripcion}`, () => {
+            Actions.Jornada.editar({
+              ...jornada,
+              estado: 0
+            }, this.props)
+          });
+          return <View />
+        }
+        if (SSRolesPermisosValidate({ page: "CalendarioPage", permiso: "reservar" })) {
+          this.props.navigation.navigate("MesaPage", { jornada: jornada });
+          return <View />
+        }
+
       }}
       onChange={(evt) => {
-
+        // if (!SSRolesPermisosValidate({ page: "CalendarioPage", permiso: "reservar" })) {
+        //   return <View />
+        // }
+        if (!SSRolesPermisosValidate({ page: "CalendarioPage", permiso: "registrar" })) {
+          return <View />
+        }
         var fecha = new SDate(evt.date).clone()
         var fecha_inicio = fecha.addHours(17).toString();
         var fecha_fin = fecha.addHours(10).toString();

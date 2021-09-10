@@ -6,7 +6,7 @@ import Page from '../../Component/Page';
 import SOrdenador from '../../Component/SOrdenador';
 import AppParams from '../../Params';
 import { SDate, SForm, SInput, SLoad, SPopup, SScrollView2, SText, STheme, SView } from '../../SComponent';
-
+import Buscador from '../../Component/Buscador'
 class IngresoPage extends Component {
     static navigationOptions = {
         headerShown: false,
@@ -54,20 +54,30 @@ class IngresoPage extends Component {
         </SView>
     }
     getLista() {
+        if (!this.state.buscador) {
+            return <ActivityIndicator color={"#fff"} />
+        }
         var tipoMesa = Actions.Mesa.getTipoMesa(this.props);
         var mesas = Actions.Mesa.mesaGetAll(this.props);
         var reservas = Actions.Mesa.reservarMesaGetAll(this.props);
         if (!tipoMesa) return <ActivityIndicator color={"#fff"} />
         if (!mesas) return <ActivityIndicator color={"#fff"} />
         if (!reservas) return <ActivityIndicator color={"#fff"} />
+
         return Object.keys(tipoMesa).map((key_tipo_mesa) => {
             var reservasData = reservas[key_tipo_mesa];
             var mesasData = mesas[key_tipo_mesa];
             var tipo = tipoMesa[key_tipo_mesa];
             if (!mesasData) mesasData = {};
             if (!reservasData) return <View />
-
-            return Object.keys(reservasData).map((key) => {
+            return new SOrdenador([
+                { key: "Peso", order: "desc", peso: 4 },
+                // { key: "Nombres", order: "asc", peso: 2 },
+                // { key: "Apellidos", order: "asc", peso: 1 },
+            ]).ordernarObject(
+                this.state.buscador.buscar(reservasData)
+            ).map((key) => {
+                
                 var obj = reservasData[key];
                 if (!obj.key_mesa) {
                     return <View />
@@ -75,8 +85,10 @@ class IngresoPage extends Component {
                 if (obj.estado == 0) return <View />
                 var usuario = Actions.Usuario.getByKey(obj.key_usuario, this.props);
                 if (!usuario) return <SLoad />
+                reservasData[key].cliente = usuario; 
                 var relacionador = Actions.Usuario.getByKey(obj.key_relacionador, this.props);
                 if (!relacionador) return <SLoad />
+                reservasData[key].relacionador = relacionador;
                 if (obj.key_jornada != this.state.jornada.key) return <View />
                 var mesa = mesasData[obj.key_mesa];
                 return <SView col={"xs-11"} card style={{
@@ -193,8 +205,8 @@ class IngresoPage extends Component {
                                         styleInput={{
                                             textAlign: "center",
                                         }}
-                                        value={obj.cantidad + ""}
-                                        // loading={this.props.state.reservaMesaReducer.estado == "cargando"}
+                                        value={(!obj.cantidad ? 0 : obj.cantidad) + ""}
+                                    // loading={this.props.state.reservaMesaReducer.estado == "cargando"}
                                     />
                                 </SView>
                                 <SView col={"xs-3"} height center>
@@ -233,7 +245,11 @@ class IngresoPage extends Component {
             <Page navigation={this.props.navigation}
                 title={"Ingreso"}
             >
-                {this.getJornada()}
+                <SView col={"xs-12"} height={8} />
+                {this.getJornada()
+                }
+                < SView col={"xs-12"} height={8} />
+                <Buscador ref={(ref) => { if (!this.state.buscador) this.setState({ buscador: ref }); }} repaint={() => { this.setState({ ...this.state }) }} />
                 <SView col={"xs-12"} flex style={{}}>
                     <SScrollView2 disableHorizontal>
 
@@ -244,7 +260,7 @@ class IngresoPage extends Component {
                 </SView>
 
 
-            </Page>
+            </Page >
         );
     }
 }

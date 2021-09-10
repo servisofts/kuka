@@ -6,6 +6,7 @@ import Page from '../../Component/Page';
 import AppParams from '../../Params';
 import { SDate, SForm, SInput, SPopup, SText, STheme, SView, SScrollView2, SLoad } from '../../SComponent';
 import SOrdenador from '../../Component/SOrdenador';
+import { SSRolesPermisosValidate } from '../../SSRolesPermisos';
 class ReservaPage extends Component {
     static navigationOptions = {
         headerShown: false,
@@ -86,7 +87,7 @@ class ReservaPage extends Component {
                         <SView flex center>
                             <SText style={{
                                 fontSize: 10,
-                            }}>{`${tipoMesa.descripcion} ${obj.descripcion}${obj.codigo}`}</SText>
+                            }}>{`${tipoMesa.descripcion} ${obj.codigo}`}</SText>
                         </SView>
                         {/* <SText style={{ fontSize: 10, textAlign: "center" }}>{`${usuario.Telefono}`}</SText> */}
                         <SView>
@@ -123,7 +124,14 @@ class ReservaPage extends Component {
                 < SView col={"xs-12"} card height row center style={{
                     padding: 2,
                 }} onPress={() => {
-                    if (reserva_select) return;
+                    if (reserva_select) {
+                        if (SSRolesPermisosValidate({ page: "MesaPage", permiso: "cancelarReserva" })) {
+                            SPopup.confirm(`Seguro que desea cancelar la reserva?`, () => {
+                                Actions.Mesa.cancelarReserva(reserva_select,key_tipo_mesa, this.props);
+                            });
+                        }
+                        return;
+                    }
                     this.props.navigation.navigate("ClientesPage", {
                         onSelect: (usr) => {
                             Actions.Mesa.reservarMesa(

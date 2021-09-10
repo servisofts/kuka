@@ -49,6 +49,21 @@ export default class index {
         }
         return props.state.reservaMesaReducer.data
     }
+    static cancelarReserva = (reserva,key_tipo_mesa, props) => {
+        var object = {
+            component: "reservaMesa",
+            type: "editar",
+            estado: "cargando",
+            key_usuario: props.state.usuarioReducer.usuarioLog.key,
+            data: {
+                ...reserva,
+                estado: 0,
+            },
+            key_tipo_mesa
+        }
+        props.state.socketReducer.session[AppParams.socket.name].send(object, true);
+        return;
+    }
     static reservarMesa = ({ key_mesa, key_usuario, fecha, key_tipo_mesa, key_jornada }, props) => {
         var object = {
             component: "reservaMesa",

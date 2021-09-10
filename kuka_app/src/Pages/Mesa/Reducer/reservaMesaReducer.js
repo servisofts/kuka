@@ -11,6 +11,9 @@ export default (state, action) => {
             case "registro":
                 registro(state, action);
                 break;
+            case "editar":
+                editar(state, action);
+                break;
             case "getAll":
                 getAll(state, action);
                 break;
@@ -33,6 +36,20 @@ const registro = (state, action) => {
         if (state.data) {
             if (state.data[action.key_tipo_mesa]) {
                 state.data[action.key_tipo_mesa][action.data.key] = action.data;
+            }
+        }
+
+    }
+}
+const editar = (state, action) => {
+    if (action.estado === "exito") {
+        if (state.data) {
+            if (state.data[action.key_tipo_mesa]) {
+                if (action.data.estado == 0) {
+                    if (state.data[action.key_tipo_mesa][action.data.key]) {
+                        delete state.data[action.key_tipo_mesa][action.data.key];
+                    }
+                }
             }
         }
 

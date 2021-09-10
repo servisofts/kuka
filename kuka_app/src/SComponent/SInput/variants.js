@@ -40,7 +40,7 @@ const getType = (type: TypeVariant) => {
         default:
             return StyleSheet.create({
                 "View": {
-                    paddingStart:8,
+                    // paddingStart:8,
                     height: 50,
                 }
             })

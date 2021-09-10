@@ -7,8 +7,8 @@
         "deviceKey": "kuka_deviceKey",
         "fbtoken": "FIREBASE_TOKEN"
     },
-    "_urlImages": "http://192.168.0.199:30018/",
-    "urlImages": "https://kuka.servisofts.com/images/",
+    "urlImages": "http://192.168.0.3:30020/",
+    "_urlImages": "https://kuka.servisofts.com/images/",
     "servicios": {
         "roles_permisos": "https://rolespermisos.servisofts.com/images/"
     }

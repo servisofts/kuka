@@ -9,7 +9,7 @@ import SSize from '../SSize';
 import { SText } from '../SText';
 import SDate from '../SDate';
 //@ts-ignore
-type typeConfig = {
+export type typeConfigView = {
     style: ViewStyle,
     customStyle: TypeStyles,
     type: TypeType,
@@ -24,7 +24,7 @@ type typeConfig = {
 
 type typeProps = {
     style: ViewStyle,
-    props: typeConfig,
+    props: typeConfigView,
     onPress: Function,
     // ViewPropTypes,
     // TouchableOpacityProps,
@@ -34,13 +34,15 @@ type typeProps = {
 interface IProps extends ViewProps {
     animated: Boolean,
     style: ViewStyle,
-    props: typeConfig,
+    props: typeConfigView,
     onPress: Function,
     col: TypeCol,
     row: boolean,
     center: boolean,
     flex: number,
-    withoutFeedback: Boolean
+    withoutFeedback: Boolean,
+    card: boolean,
+    height: boolean | string | number
 }
 
 export class SView extends Component<IProps> {
@@ -177,7 +179,13 @@ export class SView extends Component<IProps> {
 
                         ...(this.getOption("direction") == "row" || this.props.row ? { flexDirection: "row", flexWrap: "wrap", alignContent: "flex-start", } : {}),
                         ...(this.getFlex()),
-                        ...(this.props.center ? { alignItems: "center", justifyContent: "center" } : {})
+                        ...(this.props.center ? { alignItems: "center", justifyContent: "center" } : {}),
+                        ...(this.props.card ? { backgroundColor: STheme().card, borderRadius: 4, minHeight: 30, } : {}),
+                        ...(this.props.height ? this.props.height == true ? {
+                            height:"100%",
+                        } : {
+                            height:this.props.height,
+                        } : {})
                     }, {
                         ...this.state.style,
                     }

@@ -140,6 +140,15 @@ public class Conexion {
         return getConexion().prepareStatement(query);
     }
 
+    public static void insertObject(String nombre_tabla, JSONObject obj) throws SQLException{
+        JSONArray json = new JSONArray();
+        json.put(obj);
+        String funct = "insert into " + nombre_tabla + " (select * from json_populate_recordset(null::" + nombre_tabla
+            + ", '" + json.toString() + "')) RETURNING key";
+        PreparedStatement ps = con.prepareStatement(funct);
+        ps.executeQuery();
+        ps.close();
+    }
     public static void insertArray(String nombre_tabla, JSONArray json) throws SQLException{
         String funct = "insert into " + nombre_tabla + " (select * from json_populate_recordset(null::" + nombre_tabla
             + ", '" + json.toString() + "')) RETURNING key";

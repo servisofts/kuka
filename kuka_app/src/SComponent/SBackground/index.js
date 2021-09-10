@@ -15,7 +15,7 @@ export default class SBackground extends Component<type> {
     getBackground = () => {
         var source = this.props.source;
         if (!source) {
-            source = require("../../img/background.png");
+            source = require("./background.png");
         }
         return <View style={{
             width: "100%",

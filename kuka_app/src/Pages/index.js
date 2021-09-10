@@ -42,7 +42,7 @@ import ClientesPageSelect from './ClientesPageSelect'
 import SucursalPage from './SucursalPage'
 import SucursalRegistroPage from './SucursalRegistroPage'
 import BuscarDireccionPage from './BuscarDireccionPage'
-
+import PorterosPage from './PorterosPage'
 import EntrenadorPage from './EntrenadorPage'
 import EntrenadorPerfilPage from './EntrenadorPerfilPage'
 import EntrenamientoRegistroPage from './EntrenamientoRegistroPage'
@@ -60,6 +60,9 @@ import ClientePaqueteRegistroConfirmacion from './ClientePaqueteRegistroConfirma
 import Banco from './Banco'
 import VentasPage from './VentasPage/index';
 import AjustesPage from './AjustesPage'
+import DesingPage from './DesingPage'
+import Jornada from './Jornada'
+import Mesa from './Mesa'
 export const getPages = () => {
     return {
         // TestRNF,
@@ -114,6 +117,10 @@ export const getPages = () => {
         ProveedoresPage,
         ProveedorRegistroPage,
         ClientePaqueteRegistroConfirmacion,
+        PorterosPage,
+        ...Jornada.page,
+        ...Mesa,
+        ...DesingPage,
         ...TipoPago,
         ...Caja,
         ...Finanzas,

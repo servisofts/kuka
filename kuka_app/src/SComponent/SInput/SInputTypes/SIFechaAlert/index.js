@@ -8,6 +8,7 @@ import SThread from '../../../../Component/SThread';
 import { STheme } from '../../../STheme';
 import SBackground from '../../../SBackground';
 import { SScrollView2 } from '../../../../SComponent';
+import BackgroundImage from '../../../../Component/BackgroundImage';
 type typeResp = {
     year: Number,
     month: Number,
@@ -159,7 +160,6 @@ export default class SIFechaAlert extends Component<typeProps> {
 
                 <SText options={{
                     variant: "h3",
-                    type: "primary"
                 }}>
                     {obj.data}
 
@@ -174,9 +174,9 @@ export default class SIFechaAlert extends Component<typeProps> {
     //     this.scroll["day"].scrollToEnd();
     // }, 2000)
     // }
-    getLista = (key,size) => {
+    getLista = (key, size) => {
         return <SView props={{
-            col:size,
+            col: size,
             height: "100%",
             variant: "center"
         }}>
@@ -232,16 +232,16 @@ export default class SIFechaAlert extends Component<typeProps> {
                 borderRadius: 8,
                 // overflow:"hidden"
             }}>
-            <SBackground />
+            <BackgroundImage />
             <SView props={{
                 direction: "row"
             }} style={{
                 width: "100%",
                 height: 200,
             }}>
-                {this.getLista("day","xs-3")}
-                {this.getLista("month","xs-6")}
-                {this.getLista("year","xs-3")}
+                {this.getLista("day", "xs-3")}
+                {this.getLista("month", "xs-6")}
+                {this.getLista("year", "xs-3")}
             </SView>
         </SView>
     }

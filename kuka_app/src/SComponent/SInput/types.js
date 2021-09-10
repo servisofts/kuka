@@ -9,6 +9,7 @@ import { SView } from "../SView"
 import SIFechaPicker from "./SInputTypes"
 import SIDialCodeAlert from "./SInputTypes/SIDialCodeAlert"
 import SIFechaAlert from "./SInputTypes/SIFechaAlert"
+import SISelect from "./SInputTypes/SISelect"
 
 export type TypeType = "default" | "fecha" | "date" | "password" | "email" | "phone" | "number" | "money" | "text" | "select"
 type returnType = {
@@ -244,24 +245,70 @@ const text = (type: TypeType, Parent: SInput) => {
     })
 }
 const select = (type: TypeType, Parent: SInput) => {
+    // var format = "yyyy-MM-dd";
     return buildResp({
         props: {
-            keyboardType: "default",
             editable: false,
+            pointerEvents: "none",
         },
-        style: {
-            View: {},
-            InputText: {}
+        render: (_Parent: SInput) => {
+            var value = _Parent.getValue();
+            var options = _Parent.getOption("options");
+            options.map((option) => {
+                if (option.key == value) {
+                    value = option;
+                }
+            })
+            if (!value) return <View />
+            if (typeof value != "object") {
+                return <SText col={"xs-12"}>{value}</SText>
+            }
+            if (!value.content) return <View />
+            if (typeof value.content != "object") {
+                return <SText col={"xs-12"}>{value.content}</SText>
+            }
+            return value.content;
         },
         onPress: () => {
-
+            // var value = new SDate(Parent.getValue() + "", "yyyy-MM-dd");
+            var options = Parent.getOption("options");
+            SPopupOpen({
+                key: "fechaPicker",
+                content: <SISelect
+                    props={{
+                        defaultValue: Parent.getValue(),
+                    }}
+                    options={options}
+                    onClose={() => {
+                        Parent.notifyBlur();
+                    }}
+                    onChange={(val) => {
+                        console.log(val);
+                        Parent.setValue(val);
+                    }} />
+            })
         },
-        verify: (value) => {
-            if (!value) return false;
-            return true;
+        filter: (_value: String) => {
+            var options = Parent.getOption("options");
+            if(typeof options[_value] != "object"){
+                return options[_value]
+            }else{
+                return options[_value].label
+            }
+        },
+        style: {
+            View: {
+                justifyContent: "center",
+                // alignItems:"center",
+            },
+            InputText: {
+                // fontSize: 0,
+            },
+            LabelStyle: {}
         }
     })
 }
+
 const money = (type: TypeType, Parent: SInput) => {
     return buildResp({
         props: {

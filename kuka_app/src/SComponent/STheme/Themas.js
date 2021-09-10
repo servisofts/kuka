@@ -10,16 +10,18 @@ export type propsType = {
     colorDanger: ColorPropType,
     colorSuccess: ColorPropType,
     colorOpaque: ColorPropType,
+    card: string
 
 }
 const Themas = {
     default: {
-        colorPrimary: "#ffffff",
+        colorPrimary: "#000000",
         colorSecondary: "#ffffff",
         backgroundColor: "#222222",
         colorDanger: "#C31C37",
         colorOpaque:"#444444",
         colorSuccess: "#8BCB2A",
+        card:"#272021aa"
     },
     dark: {
         colorPrimary: "#000000",
@@ -28,6 +30,7 @@ const Themas = {
         colorDanger: "#C31C37",
         colorOpaque:"#884444",
         colorSuccess: "#8BCB2A",
+        card:"#27202166"
 
     }
 };

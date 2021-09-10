@@ -9,6 +9,7 @@ type formatsTypes =
     | "dd/MM/yyyy"
     | "dd/MM"
     | "yyyy/MM"
+    | "day"
 
 export default class SDate {
 
@@ -77,6 +78,7 @@ export default class SDate {
     }
 
     //CLASS
+    date: Date;
     constructor(date, format: formatsTypes) {
         if (!date) {
             this.date = new Date();
@@ -115,6 +117,10 @@ export default class SDate {
         this.date.setDate(this.getDay() + val);
         return this;
     }
+    addHours(val) {
+        this.date.setHours(this.date.getHours() + val);
+        return this;
+    }
     addMonth(val) {
         this.date.setMonth(this.getMonth() - 1 + val);
         return this;
@@ -129,7 +135,14 @@ export default class SDate {
         return this.date.getDay();
     }
     getDayOfWeekJson() {
-        return SDate.getDayOfWeek(this.date.getDay());
+        var dia = this.date.getDay() 
+        if (dia== 0) {
+            dia = 6;
+        }else{
+            dia = dia - 1;
+        }
+
+        return SDate.getDayOfWeek(dia);
     }
     equalDay(sdate) {
         if (this.toString("yyyy-MM-dd") == sdate.toString("yyyy-MM-dd")) {
@@ -173,6 +186,7 @@ export default class SDate {
         format = format.replace("MONTH", this.getMonthJson(json.month).text);
         format = format.replace("MON", this.getMonthJson(json.month).textSmall);
         format = format.replace("dd", this.formatCero(json.day));
+        format = format.replace("day", this.getDayOfWeekJson().text);
         format = format.replace("hh", this.formatCero(json.hour));
         format = format.replace("mm", this.formatCero(json.minutes));
         format = format.replace("ss", this.formatCero(json.seconds));

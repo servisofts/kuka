@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Animated, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import AppParams from '../../Params';
+import { SText } from '../../SComponent';
 import Svg from '../../Svg';
 import SImage from '../SImage';
 
@@ -100,12 +101,11 @@ class BarraSuperior extends Component {
                 });
             }
         }
-        return (<Text style={{
-            color: "#fff",
+        return (<SText style={{
             // fontSize: 12,
             fontWeight: "bold",
             // fontFamily:"myFont"
-        }}>{text}</Text>)
+        }}>{text}</SText>)
     }
     render() {
         return (
@@ -144,7 +144,7 @@ class BarraSuperior extends Component {
                     <TouchableOpacity style={{
                         width: 45,
                         height: "100%",
-                        backgroundColor: "#000",
+                        // backgroundColor: "#ECE26E",
                         justifyContent: "center",
                         alignItems: "center",
                     }} activeOpacity={0.9} onPress={this.props.goBack}>
@@ -176,7 +176,7 @@ class BarraSuperior extends Component {
                     padding: 4,
                     // backgroundColor: "#fff"
                 }}>
-                    <Svg resource={require("../../img/calistenia.svg")} style={{
+                    <Svg name={"Kuka_line"} style={{
                         with: "100%",
                         height: "100%",
                         fill: "#000"

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import Actions from '../../Actions';
 import { SText, SView, SDate } from '../../SComponent';
+import SPopup from '../SPopup';
 import { STheme } from '../STheme';
 
 type TaskProps = {
@@ -9,7 +11,8 @@ type TaskProps = {
 }
 type CalendarProps = {
     onChange: (SDate: SDate) => {},
-    task: TaskProps
+    task: TaskProps,
+    jornadas: any
 }
 export default class SCalendar extends Component<CalendarProps> {
     constructor(props) {
@@ -33,10 +36,8 @@ export default class SCalendar extends Component<CalendarProps> {
             }}>
                 <SText props={{
                     variant: "h4",
-                    type: "primary"
                 }}>{this.state.date.toString("MONTH")}</SText>
                 <SText props={{
-                    type: "primary",
                 }}>{this.state.date.toString("yyyy")}</SText>
             </SView>
             <SView props={{
@@ -48,7 +49,6 @@ export default class SCalendar extends Component<CalendarProps> {
             }}>
                 <SText props={{
                     variant: "h3",
-                    type: "primary"
                 }}>{"<"}</SText>
             </SView>
             <SView props={{
@@ -60,7 +60,6 @@ export default class SCalendar extends Component<CalendarProps> {
 
             }}>
                 <SText props={{
-                    type: "primary"
                 }}>{"Hoy"}</SText>
             </SView>
             <SView props={{
@@ -72,7 +71,6 @@ export default class SCalendar extends Component<CalendarProps> {
             }}>
                 <SText props={{
                     variant: "h3",
-                    type: "primary"
                 }}>{">"}</SText>
             </SView>
         </SView>
@@ -85,7 +83,6 @@ export default class SCalendar extends Component<CalendarProps> {
                 col: "xs-1.7",
             }}>
                 <SText props={{
-                    type: "primary"
                 }}>{day.textSmall}</SText>
             </SView>
         })
@@ -153,6 +150,54 @@ export default class SCalendar extends Component<CalendarProps> {
             ...this.GetBorder(date, fecha_inicio.clone(), fecha_fin.clone())
         }}> </SView>
     }
+    getJornada(date: SDate) {
+        if (!this.props.jornadas) {
+            return <View />
+        }
+        return Object.keys(this.props.jornadas).map((key) => {
+            var jornada = this.props.jornadas[key];
+            if (jornada.estado == 0) return <View />
+
+            var fecha_inicio = new SDate(jornada.fecha_inicio);
+            var fecha_fin = new SDate(jornada.fecha_fin)
+
+            // fecha_fin.addDay(this.props.task.dias);
+            // if (date.isBefore(fecha_inicio.clone().addDay(-1))) {
+            //     return <View />
+            // }
+            // if (date.isAfter(fecha_fin)) {
+            //     return <View />
+            // }
+            if (!date.equalDay(fecha_inicio)) {
+                return <View />
+            }
+
+            return <SView style={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+            }} center onPress={() => {
+                if (this.props.onDelete) {
+                    this.props.onDelete(jornada)
+                }
+            }}>
+
+                <SView style={{
+                    width: "80%",
+                    height: "80%",
+                    backgroundColor: STheme().colorDanger + 66,
+                    borderRadius: 100,
+                    overflow: "hidden"
+                    // ...this.GetBorder(date, fecha_inicio.clone(), fecha_fin.clone())
+                }} center>
+
+                    <SText style={{
+                        fontSize: 8,
+                    }}>{jornada.descripcion}</SText>
+                </SView>
+            </SView>
+        })
+    }
     getSemana(date: SDate) {
         return Object.keys(SDate.getDaysOfWeek()).map((key) => {
             var day = SDate.getDayOfWeek(key);
@@ -183,7 +228,6 @@ export default class SCalendar extends Component<CalendarProps> {
                     }}>
                         {this.getCurDate(curDayClone)}
                         <SText props={{
-                            type: "primary",
                         }} style={{
                             textAlign: "center",
                             ...(!isCurMont ? { color: STheme().colorOpaque } : {})
@@ -191,6 +235,7 @@ export default class SCalendar extends Component<CalendarProps> {
                     </SView>
                 </SView>
                 {this.getTask(curDayClone)}
+                {this.getJornada(curDayClone)}
             </SView>
         })
     }

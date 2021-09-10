@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { SPopupClose } from '..'
+import Actions from '../../../Actions'
 import BackgroundImage from '../../../Component/BackgroundImage'
 import { SButtom } from '../../SButtom'
 import { SText } from '../../SText'
@@ -9,6 +10,9 @@ import { SView } from '../../SView'
 export default class Confirm extends Component {
     constructor(props) {
         super(props)
+    }
+    componentWillUnmount() {
+        if (this.props.onCancel) this.props.onCancel()
     }
     render() {
         return (
@@ -34,6 +38,7 @@ export default class Confirm extends Component {
                                 type: "danger"
                             }}
                             onPress={() => {
+                                if (this.props.onCancel) this.props.onCancel()
                                 SPopupClose("confirm")
                             }}>Cancelar</SButtom>
                     </SView>

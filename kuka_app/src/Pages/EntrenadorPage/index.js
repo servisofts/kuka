@@ -38,7 +38,7 @@ class EntrenadorPage extends Component {
       key_usuario: this.props.state.usuarioReducer.usuarioLog.key,
     }
     this.props.state.socketReducer.session[AppParams.socket.name].send(object, true);
-    
+
   }
   sendMail = (to) => {
     if (Platform.OS == "web") return;
@@ -178,9 +178,10 @@ class EntrenadorPage extends Component {
             this.props.navigation.goBack();
             return;
           }
-          this.props.navigation.navigate("EntrenadorPerfilPage", {
-            key_usuario: key
-          })
+          this.props.navigation.navigate("ClienteRegistroPage", {key: key })
+          // this.props.navigation.navigate("ClienteRegistroPage", {
+          //   key_usuario: key
+          // })
         }}>
           <View style={{
             flex: 1,
@@ -220,7 +221,7 @@ class EntrenadorPage extends Component {
                   fontWeight: "bold",
                   color: "#fff",
                   textTransform: "capitalize",
-                  textDecorationLine:(obj.estado==0?"line-through":"none"),
+                  textDecorationLine: (obj.estado == 0 ? "line-through" : "none"),
                 }}>{obj["Nombres"] + " " + obj["Apellidos"]}</Text>
               </View>
             </View>
@@ -238,7 +239,7 @@ class EntrenadorPage extends Component {
         // backgroundColor:"#000",
       }}>
         <BackgroundImage />
-        <BarraSuperior title={"Entrenadores"} navigation={this.props.navigation} goBack={() => {
+        <BarraSuperior title={"Relacionadores"} navigation={this.props.navigation} goBack={() => {
           this.props.navigation.goBack();
         }} />
         <Buscador ref={(ref) => {
@@ -267,9 +268,9 @@ class EntrenadorPage extends Component {
           >
             {getLista()}
           </SSCrollView>
-          {/* <FloatButtom onPress={() => {
-            this.props.navigation.navigate("ClienteRegistroPage")
-          }} /> */}
+          <FloatButtom onPress={() => {
+            this.props.navigation.navigate("ClienteRegistroPage", { key_rol: "b5b4a616-dd16-4443-b859-39245f50c8df" })
+          }} />
         </View>
       </View>
     </>

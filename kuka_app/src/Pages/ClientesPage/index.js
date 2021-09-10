@@ -14,10 +14,8 @@ import SSCrollView from '../../Component/SScrollView';
 import FloatButtom from '../../Component/FloatButtom';
 import SOrdenador from '../../Component/SOrdenador';
 import Buscador from '../../Component/Buscador';
-import { SDate, SScrollView2, SText } from '../../SComponent';
-import { SView } from '../../SComponent/SView/index';
-import Actions from '../../Actions';
-class ClientesPage extends Component {
+import { SScrollView2, SView } from '../../SComponent';
+class VentasPage extends Component {
   static navigationOptions = {
     title: "Lista de usuario.",
     headerShown: false,
@@ -29,6 +27,7 @@ class ClientesPage extends Component {
         curPage: 1,
       }
     };
+    this.onSelect = props.navigation.getParam("onSelect");
     // SSNavigation.setProps(props);
 
   }
@@ -42,11 +41,6 @@ class ClientesPage extends Component {
       key_usuario: this.props.state.usuarioReducer.usuarioLog.key,
     }
     this.props.state.socketReducer.session[AppParams.socket.name].send(object, true);
-    this.props.state.socketReducer.session[AppParams.socket.name].send({
-      component: "clientesActivos",
-      type: "getAll",
-      estado: "cargando"
-    }, true);
 
   }
   sendMail = (to) => {
@@ -88,7 +82,7 @@ class ClientesPage extends Component {
     Linking.openURL(phoneNumber);
   };
   pagination = (listaKeys) => {
-    var pageLimit = 10
+    var pageLimit = 50
     if (!listaKeys) {
       return [];
     }
@@ -107,22 +101,7 @@ class ClientesPage extends Component {
     // console.log(actual + pageLimit);
     return listaKeys.slice(0, actual + pageLimit);
   }
-  getSucursal(key_sucursal) {
-    var data = Actions.Sucursal.getAll(this.props);
-    if (!data) return <View />
-    var obj = data[key_sucursal]
-    return <SView>
-      <SText>Sucursal: {obj.descripcion}</SText>
-    </SView>
-  }
-  getUsuario(key_usuario) {
-    var data = Actions.Usuario.getAll(this.props);
-    if (!data) return <View />
-    var obj = data[key_usuario]
-    return <SView>
-      <SText>Admin: {obj.Nombres}</SText>
-    </SView>
-  }
+
   render() {
 
     const getLista = () => {
@@ -143,57 +122,78 @@ class ClientesPage extends Component {
         this.props.state.socketReducer.session[AppParams.socket.name].send(object, true);
         return <ActivityIndicator color={"#fff"} />
       }
-      var reducer = this.props.state.clientesActivosReducer;
-      if (!reducer.data) {
+      var reducer = this.props.state.usuarioRolReducer;
+      var dataRU = reducer.rol["d16d800e-5b8d-48ae-8fcb-99392abdf61f"];
+      if (!dataRU) {
         if (reducer.estado == "cargando") {
           return <ActivityIndicator color={"#fff"} />
         }
         this.props.state.socketReducer.session[AppParams.socket.name].send({
-          component: "clientesActivos",
+          component: "usuarioRol",
           type: "getAll",
-          estado: "cargando"
+          estado: "cargando",
+          key_rol: "d16d800e-5b8d-48ae-8fcb-99392abdf61f",
         }, true);
         return <ActivityIndicator color={"#fff"} />
       }
+
+      /*  var usuariosActivos = this.props.state.usuariosActivosReducer;
+        if (!usuariosActivos) {
+          if (reducer.estado == "cargando") {
+            return <ActivityIndicator color={"#fff"} />
+          }
+          this.props.state.socketReducer.session[AppParams.socket.name].send({
+            component: "usuario",
+            type: "getActivos",
+            estado: "cargando",
+          }, true);
+          return <ActivityIndicator color={"#fff"} />
+        }
+        */
 
       if (!this.state.buscador) {
         return <ActivityIndicator color={"#fff"} />
       }
       var objFinal = {};
-      Object.keys(reducer.data).map((key) => {
-        objFinal[key] = {
-          ...data[key],
-          vijencia: reducer.data[key],
-          fecha_inicio: reducer.data[key].fecha_on,
-          fecha_fin: reducer.data[key].fecha_fin,
-        };
+      Object.keys(data).map((key) => {
+        if (!dataRU[key]) {
+          return <View />
+        }
+        // if (data[key].estado == 0) {
+        //   return <View />
+        // }
+        objFinal[key] = data[key];
       });
       return this.pagination(
         new SOrdenador([
           { key: "Peso", order: "desc", peso: 4 },
-          { key: "fecha_fin", order: "asc", peso: 3 },
+          { key: "Nombres", order: "asc", peso: 2 },
+          { key: "Apellidos", order: "asc", peso: 1 },
         ]).ordernarObject(
           this.state.buscador.buscar(objFinal)
         )
       ).map((key) => {
         var usr = data[key];
         var obj = data[key];
-        var dataFinal = objFinal[key];
-        var vijencia = dataFinal["vijencia"];
+
         // if (!usr.estado) {
         //   return <View />
         // }
         return <TouchableOpacity style={{
           width: "90%",
           maxWidth: 600,
-          padding: 4,
-          height: 100,
+          height: 50,
           margin: 4,
           borderRadius: 10,
           backgroundColor: "#66000044"
         }} onPress={() => {
-          this.props.navigation.navigate("ClientePerfilPage", {
-            key_usuario: key
+          if(this.onSelect){
+            this.onSelect(obj);
+            this.props.navigation.goBack();
+            return;
+          }
+          this.props.navigation.navigate("ClienteRegistroPage", {
+            key: key
           })
         }}>
           <View style={{
@@ -236,37 +236,8 @@ class ClientesPage extends Component {
                   textTransform: "capitalize",
                   textDecorationLine: (obj.estado == 0 ? "line-through" : "none"),
                 }}>{obj["Nombres"] + " " + obj["Apellidos"]}</Text>
-                {this.getSucursal(vijencia["caja"].key_sucursal)}
-                {this.getUsuario(vijencia["caja"].key_usuario)}
-                <SView row>
-                  <Text style={{ fontSize: 10, color: "#fff", }}>{new SDate(vijencia.fecha_on).toString("dd/MM/yyyy")}</Text>
-                  <Text style={{ fontSize: 10, color: "#fff", }}>{" - "}</Text>
-                  <Text style={{ fontSize: 10, color: "#fff", }}>{new SDate(vijencia.fecha_fin).toString("dd/MM/yyyy")}</Text>
-                </SView>
-                
-                <Text style={{ fontSize: 10, color: "#fff", }}>{vijencia.paquete.nombre}</Text>
               </View>
-              <SView center>
-                <View style={{
-                  width: 40,
-                  height: 40,
-                  marginRight: 8,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#ff999933",
-                  borderRadius: 100,
-                  overflow: "hidden"
-                }}>
-                  {this.props.state.imageReducer.getImage(AppParams.urlImages + "paquete_" + vijencia.paquete.key, {
-                    width: "100%",
-                    objectFit: "cover",
-                    resizeMode: "cover",
-                  })}
-                </View>
-                <Text style={{ fontSize: 10, color: "#fff", textTransform: "lowercase" }}>{vijencia.paquete.descripcion}</Text>
-              </SView>
             </View>
-
           </View>
         </TouchableOpacity>
       })
@@ -281,7 +252,7 @@ class ClientesPage extends Component {
         // backgroundColor:"#000",
       }}>
         <BackgroundImage />
-        <BarraSuperior title={"Clientes"} navigation={this.props.navigation} goBack={() => {
+        <BarraSuperior title={"Ventas"} navigation={this.props.navigation} goBack={() => {
           this.props.navigation.goBack();
         }} />
         <Buscador ref={(ref) => {
@@ -293,10 +264,6 @@ class ClientesPage extends Component {
         }}>
           <SScrollView2
             disableHorizontal
-            style={{ width: "100%" }}
-            contentContainerStyle={{
-              alignItems: "center"
-            }}
             onScroll={(evt) => {
               var evn = evt.nativeEvent;
               var posy = evn.contentOffset.y + evn.layoutMeasurement.height;
@@ -307,15 +274,13 @@ class ClientesPage extends Component {
               }
             }}
           >
-            <View style={{
-              width: "100%",
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}>
+            <SView col={"xs-12"} center>
               {getLista()}
-            </View>
+            </SView>
           </SScrollView2>
+          <FloatButtom esconder={this.onSelect} onPress={() => {
+            this.props.navigation.navigate("ClienteRegistroPage")
+          }} />
         </View>
       </View>
     </>
@@ -325,4 +290,4 @@ class ClientesPage extends Component {
 const initStates = (state) => {
   return { state }
 };
-export default connect(initStates)(ClientesPage);
+export default connect(initStates)(VentasPage);

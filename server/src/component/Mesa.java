@@ -37,13 +37,7 @@ public class Mesa {
             case "subirFoto":
             subirFoto(data, session);
             break;
-            default:
-                defaultType(data, session);
         }
-    }
-
-    public void defaultType(JSONObject obj, SSSessionAbstract session) {
-        SocketCliete.send("usuario", obj, session);
     }
 
     public void getAll(JSONObject obj, SSSessionAbstract session) {

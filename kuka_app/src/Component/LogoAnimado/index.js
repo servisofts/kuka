@@ -15,11 +15,12 @@ export default class LogoAnimado extends Component {
                 flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
-                width: "90%",
+                width: "80%",
                 maxWidth: 500,
                 minHeight: 100,
+                padding:8
             }}>
-                <Svg resource={require("../../img/calisteniaw.svg")} style={{
+                <Svg name={"Kuka_line"} style={{
                     fill: "#000"
                 }} />
             </View>

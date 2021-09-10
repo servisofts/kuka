@@ -6,6 +6,7 @@ import App from './App';
 //   console.log(evt)
 //   return "Your work will be lost.";
 // };
+window.onpopstate = function (e) { window.history.forward(1); }
 
 ReactDOM.render(
   <React.StrictMode>

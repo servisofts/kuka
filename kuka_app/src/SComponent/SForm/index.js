@@ -2,7 +2,7 @@ import React, { Component, ViewStyle } from 'react';
 import { View, Text } from 'react-native';
 import { SButtom, typeConfig } from '../SButtom';
 import { SInput, TypeInputProps, typeConfigInpust } from '../SInput';
-import { SView, SViewPropsType } from '../SView';
+import { SView, typeConfigView } from '../SView';
 import { Col, TypeCol } from '../SView/cols';
 
 
@@ -12,8 +12,8 @@ interface InputsTp {
 }
 export type SFromProps = {
     style: ViewStyle,
-    props: SViewPropsType,
-    inputProps: TypeInputProps,
+    props: typeConfigView,
+    inputProps: typeConfigInpust,
     inputs: InputsTp,
     onSubmit: Function,
     onSubmitName: String,

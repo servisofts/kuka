@@ -13,7 +13,8 @@
         "reconectTime": 5000
     },
     "files":{
-        "url":"/u01/servisoftsFiles/kuka/"
+        "_url":"/u01/servisoftsFiles/kuka/",
+        "url":"/Volumes/Sintítulo/u01/servisoftsFiles/kuka/"
     },
     "data_base": {
         "puerto": 5432,

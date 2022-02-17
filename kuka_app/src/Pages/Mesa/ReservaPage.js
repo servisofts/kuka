@@ -30,6 +30,7 @@ class ReservaPage extends Component {
         var tipoMesa = tipoMesas[key_tipo_mesa];
 
         // return  Object.keys(mesasData).map((key) => {
+            
         return new SOrdenador([
             { key: "codigo", order: "asc", peso: 1, },
             {
